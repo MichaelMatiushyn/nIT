@@ -1,10 +1,8 @@
- 
-console.log("Денчик Супермен");
+// const shouldConfirm = confirm('Хочете продовжити підписку');
+// console.log(shouldConfirm);
+// метод для підтвердження: Так/Ні
 
-const shouldConfirm = confirm('Хочете продовжити підписку');
-console.log(shouldConfirm);
-
-const enterText = prompt('Enter your password');
-console.log(enterText);
-// 
+// const enterText = prompt('Enter your password');
+// console.log(enterText);
+// метод визову діалогового вікна для вводу тексту
 
