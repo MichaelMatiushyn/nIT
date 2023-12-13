@@ -6,3 +6,107 @@
 // console.log(enterText);
 // метод визову діалогового вікна для вводу тексту
 
+// let quantity = prompt("Вкажіть кількість товару");
+// quantity = Number(quantity);
+// console.log(quantity);
+// console.log(typeof quantity);
+
+// -------------------------------
+// Number.parseInt  зупиняється на першому не цифровому символі + парсить тільки ціле значення, до крапки
+// Number.parseFloat також враховує знаки після крапки перед текстом
+
+// let elementWidth = "50px";
+// elementWidth = Number.parseInt(elementWidth);
+// console.log(elementWidth);
+// console.log(typeof elementWidth);
+
+// let elementHeight = "200.74px";
+// elementHeight = Number.parseFloat(elementHeight);
+// console.log(elementHeight);
+// console.log(typeof elementHeight);
+
+// ----------------------------------------------------------------
+
+// Number.toFixed(digits) обмежує кількість знаків після крапки
+
+// let salary = 1300.16472;
+// salary = Number.parseFloat(salary.toFixed(3));
+// console.log(salary);
+// console.log(typeof salary);
+
+// ----------------------------------------------------------------
+
+// про NaN
+// let quantity = "30";
+// let value = "Цей текст не можливо перетворити в число";
+
+// console.log(Number(quantity));
+// console.log(Number(value));
+
+// ----------------------------------------------------------------
+
+// про об'єкт Math - піднесення до степеню
+
+// const base = 2;
+// const power = 5;
+
+// const result = Math.pow(base, power)
+// console.log(result)
+
+// новий оператор заміна для піднесення до ступеню -  " **  "
+
+// console.log(2 ** 3);
+
+// console.log(Math.sqrt(9)); // - корінь квадратний з числа
+// ----------------------------------------------------------------
+
+// const base = prompt("Давай число");
+// const power = prompt("Давай степень");
+
+// let result = base ** power;
+// console.log(result);
+// console.log(typeof result);
+
+// або
+
+// let base = prompt("Give the number");
+// base = Number(base);
+
+// let power = prompt("Give the power");
+// power = Number(power);
+
+// let result = Math.pow(base, power);
+
+// console.log("result: ", result);
+// console.table(typeof result);
+
+// ----------------------------------------------------------------
+// const max = 50;
+// const min = 1;
+
+// let result = Math.random() * (max - min) + min;
+// result = Math.round(result);
+// console.log(result);
+
+// // math.random() * (max - min) + min
+
+// ----------------------------------------------------------------
+
+// Рандомний вибір фону
+
+// const colors = [
+//   "tomato",
+//   "teal",
+//   "orange",
+//   "deeppink",
+//   "lightgreen",
+//   "skyblue",
+// ];
+
+// const max = colors.length - 1;
+// const min = 0;
+
+// const index = Math.round(Math.random() * (max - min) + min);
+// const color = colors[index];
+// console.log(color);
+// document.body.style.backgroundColor = color;
