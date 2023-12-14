@@ -110,3 +110,31 @@
 // const color = colors[index];
 // console.log(color);
 // document.body.style.backgroundColor = color;
+
+// ----------------------------------------------------------------
+
+// const message = "В этой строке 26 символов.";
+// console.log(message.length);
+
+// const firstName = "Chelsey";
+// const secondName = "Emerald";
+
+// const room = 716;
+// const type = "VIP";
+// const welcomeMsg = `Гость ${firstName} ${secondName} послеяется в ${type} номер ${room}`;
+
+// console.log(welcomeMsg);
+
+// ----------------------------------------------------------------
+
+// let brand = prompt("Введіть пошук бренду");
+// brand = brand[0].toUpperCase() + brand.slice(1).toLowerCase();
+
+// console.log(brand);
+
+// ----------------------------------------------------------------
+
+// string.includes('xx');
+
+// ----------------------------------------------------------------
+
