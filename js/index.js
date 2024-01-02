@@ -146,8 +146,7 @@
 // const jsFileName = "script.js";
 // console.log(jsFileName.endsWith(".js"));
 
-
-// Методи Replace() і ReplaceAll() 
+// Методи Replace() і ReplaceAll()
 
 // Метод Replace замінює перше подібне значення на конкретному рядку
 // Replace all замінює всі співпадіння
@@ -155,7 +154,6 @@
 // const jsFileName = "script.js";
 // const minifiedJsFileName = jsFileName.replace(".js", ".min.js");
 // console.log(minifiedJsFileName); // "script.min.js"
-
 
 // const cssFileNames = "styles.css, about.css, portfolio.css";
 // const minifiedCssFileNames = cssFileNames.replaceAll(".css", ".min.css");
@@ -173,12 +171,12 @@
 
 // Логічні оператори
 
-// 6 хибних (falsy) значень:     
+// 6 хибних (falsy) значень:
 // [    0,
-//      NaN, 
-//      null, 
-//      undefined, 
-//      порожній рядок 
+//      NaN,
+//      null,
+//      undefined,
+//      порожній рядок
 //      false. ]
 
 // Оператори порівняння:   &&  ||  !
