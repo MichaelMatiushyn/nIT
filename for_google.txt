@@ -1,0 +1,69 @@
+/** @OnlyCurrentDoc */
+
+function onEdit(e) {
+  var sheet = e.source.getActiveSheet();
+  var editedCell = e.range;
+
+  // Перевірка, чи відбувається редагування в колонці B (2)
+  if (editedCell.getColumn() == 2) {
+    var dateCell = sheet.getRange(editedCell.getRow(), 6); // Колонка A (1)
+    if (dateCell.getValue() === "") { // Перевірка, чи порожня клітинка
+      dateCell.setValue(new Date()); // Запис поточної дати
+    }
+  }
+
+  // Перевірка, чи відбувається редагування в колонці B (2)
+  if (editedCell.getColumn() == 3) {
+    var dateCell = sheet.getRange(editedCell.getRow(), 8); // Колонка A (1)
+    if (dateCell.getValue() === "") { // Перевірка, чи порожня клітинка
+      dateCell.setValue(new Date()); // Запис поточної дати
+    }
+  }
+}
+
+function add1() {
+  var spreadsheet = SpreadsheetApp.getActive();
+  spreadsheet.getRange('4:4').activate();
+  spreadsheet.getActiveSheet().insertRowsAfter(spreadsheet.getActiveRange().getLastRow(), 1);
+  spreadsheet.getActiveRange().offset(spreadsheet.getActiveRange().getNumRows(), 0, 1, spreadsheet.getActiveRange().getNumColumns()).activate();
+  spreadsheet.getRange('D5').activate();
+  spreadsheet.getCurrentCell().setValue('...');
+  spreadsheet.getRange('F5').activate();
+  spreadsheet.getActiveRangeList().clear({contentsOnly: true, skipFilteredRows: true});
+  spreadsheet.getRange('E5').activate();
+  spreadsheet.getRange('K2').copyTo(spreadsheet.getActiveRange(), SpreadsheetApp.CopyPasteType.PASTE_VALUES, false);
+  spreadsheet.getRange('G4').activate();
+  spreadsheet.getActiveRange().autoFill(spreadsheet.getRange('G4:G5'), SpreadsheetApp.AutoFillSeries.DEFAULT_SERIES);
+  spreadsheet.getRange('I5').activate();
+  spreadsheet.getCurrentCell().setValue('8');
+  spreadsheet.getRange('M4').activate();
+  spreadsheet.getActiveRange().autoFill(spreadsheet.getRange('M4:M5'), SpreadsheetApp.AutoFillSeries.DEFAULT_SERIES);
+  spreadsheet.getRange('M4:M5').activate();
+  spreadsheet.getRange('D5').activate();
+};
+
+function filterCheck() {
+  var spreadsheet = SpreadsheetApp.getActive();
+  spreadsheet.getRange('M3').activate();
+  var criteria = SpreadsheetApp.newFilterCriteria()
+  .setHiddenValues(['1'])
+  .build();
+  spreadsheet.getActiveSheet().getFilter().setColumnFilterCriteria(11, criteria);
+
+};
+
+function sortSt() {
+  var spreadsheet = SpreadsheetApp.getActive();
+  spreadsheet.getRange('I3').activate();
+  spreadsheet.getActiveSheet().getFilter().sort(9, false);
+};
+
+function SortDate() {
+  var spreadsheet = SpreadsheetApp.getActive();
+  spreadsheet.getRange('G3').activate();
+  spreadsheet.getActiveSheet().getFilter().sort(7, true);
+  spreadsheet.getRange('D5').activate();
+};
+
+
+
