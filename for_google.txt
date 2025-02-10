@@ -53,7 +53,11 @@ function add1() {
   spreadsheet.getRange('N4').activate();
   spreadsheet.getActiveRange().autoFill(spreadsheet.getRange('N4:N5'), SpreadsheetApp.AutoFillSeries.DEFAULT_SERIES);
   spreadsheet.getRange('N4:N5').activate();
+  spreadsheet.getRange('4:500').activate();
+  spreadsheet.setCurrentCell(spreadsheet.getRange('A500'));
+  spreadsheet.getActiveSheet().autoResizeRows(4, 497);
   spreadsheet.getRange('D5').activate();
+  
 };
 
 
@@ -68,6 +72,10 @@ function filterCheck() {
   spreadsheet.getRange('5:1000').activate();
   spreadsheet.setCurrentCell(spreadsheet.getRange('A5'));
   spreadsheet.getActiveSheet().autoResizeRows(5, 32);
+  spreadsheet.getRange('4:500').activate();
+  spreadsheet.setCurrentCell(spreadsheet.getRange('A500'));
+  spreadsheet.getActiveSheet().autoResizeRows(4, 497);
+  spreadsheet.getRange('D5').activate();
 
 };
 
@@ -81,5 +89,9 @@ function SortDate() {
   var spreadsheet = SpreadsheetApp.getActive();
   spreadsheet.getRange('G3').activate();
   spreadsheet.getActiveSheet().getFilter().sort(7, true);
+  spreadsheet.getRange('4:500').activate();
+  spreadsheet.setCurrentCell(spreadsheet.getRange('A500'));
+  spreadsheet.getActiveSheet().autoResizeRows(4, 497);
   spreadsheet.getRange('D5').activate();
+  
 };
