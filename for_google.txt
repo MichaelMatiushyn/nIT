@@ -3,6 +3,8 @@
 function onEdit(e) {
   var sheet = e.source.getActiveSheet();
   var editedCell = e.range;
+  var column = editedCell.getColumn(); // Номер колонки
+  var row = editedCell.getRow(); // Номер строки
 
   // Перевірка, чи відбувається редагування в колонці B (2)
   if (editedCell.getColumn() == 2) {
@@ -17,6 +19,15 @@ function onEdit(e) {
     var dateCell = sheet.getRange(editedCell.getRow(), 8); // Колонка A (1)
     if (dateCell.getValue() === "") { // Перевірка, чи порожня клітинка
       dateCell.setValue(new Date()); // Запис поточної дати
+    }
+  }
+  
+   // Проверяем, что редактируется колонка D (4)
+  if (column === 4) {
+    var authorCell = sheet.getRange(row, 15); // Колонка N (14-я)
+    if (authorCell.isBlank()) { // Если ячейка пустая
+      var user = Session.getActiveUser().getEmail(); // Получаем email пользователя
+      authorCell.setValue(user); // Записываем автора
     }
   }
 }
@@ -35,12 +46,16 @@ function add1() {
   spreadsheet.getRange('G4').activate();
   spreadsheet.getActiveRange().autoFill(spreadsheet.getRange('G4:G5'), SpreadsheetApp.AutoFillSeries.DEFAULT_SERIES);
   spreadsheet.getRange('I5').activate();
-  spreadsheet.getCurrentCell().setValue('8');
+  spreadsheet.getCurrentCell().setValue('0');
   spreadsheet.getRange('M4').activate();
   spreadsheet.getActiveRange().autoFill(spreadsheet.getRange('M4:M5'), SpreadsheetApp.AutoFillSeries.DEFAULT_SERIES);
   spreadsheet.getRange('M4:M5').activate();
+  spreadsheet.getRange('N4').activate();
+  spreadsheet.getActiveRange().autoFill(spreadsheet.getRange('N4:N5'), SpreadsheetApp.AutoFillSeries.DEFAULT_SERIES);
+  spreadsheet.getRange('N4:N5').activate();
   spreadsheet.getRange('D5').activate();
 };
+
 
 function filterCheck() {
   var spreadsheet = SpreadsheetApp.getActive();
@@ -49,13 +64,17 @@ function filterCheck() {
   .setHiddenValues(['1'])
   .build();
   spreadsheet.getActiveSheet().getFilter().setColumnFilterCriteria(11, criteria);
+  sortSt();
+  spreadsheet.getRange('5:1000').activate();
+  spreadsheet.setCurrentCell(spreadsheet.getRange('A5'));
+  spreadsheet.getActiveSheet().autoResizeRows(5, 32);
 
 };
 
 function sortSt() {
   var spreadsheet = SpreadsheetApp.getActive();
   spreadsheet.getRange('I3').activate();
-  spreadsheet.getActiveSheet().getFilter().sort(9, false);
+  spreadsheet.getActiveSheet().getFilter().sort(9, true);
 };
 
 function SortDate() {
@@ -64,6 +83,3 @@ function SortDate() {
   spreadsheet.getActiveSheet().getFilter().sort(7, true);
   spreadsheet.getRange('D5').activate();
 };
-
-
-
