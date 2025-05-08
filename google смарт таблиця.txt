@@ -95,3 +95,46 @@ function SortDate() {
   spreadsheet.getRange('D5').activate();
   
 };
+
+function getEuroRate() {
+    var url = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=EUR&json";
+    var response = UrlFetchApp.fetch(url);
+    var data = JSON.parse(response.getContentText());
+    return data[0].rate;
+}
+
+function getUSDRate() {
+    var url = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=USD&json";
+    var response = UrlFetchApp.fetch(url);
+    var data = JSON.parse(response.getContentText());
+    return data[0].rate;
+}
+
+function myFunction() {
+  var spreadsheet = SpreadsheetApp.getActive();
+  spreadsheet.getRange('5:36').activate();
+  spreadsheet.setCurrentCell(spreadsheet.getRange('A36'));
+  spreadsheet.getActiveSheet().autoResizeRows(5, 32);
+};
+
+function autofit() {
+  var spreadsheet = SpreadsheetApp.getActive();
+  spreadsheet.getRange('4:504').activate();
+  spreadsheet.setCurrentCell(spreadsheet.getRange('A504'));
+  spreadsheet.getActiveSheet().autoResizeRows(4, 501);
+};
+
+function autofit2() {
+  var spreadsheet = SpreadsheetApp.getActive();
+  spreadsheet.getRange('4:500').activate();
+  spreadsheet.setCurrentCell(spreadsheet.getRange('A500'));
+  spreadsheet.getActiveSheet().autoResizeRows(4, 497);
+  spreadsheet.getRange('D5').activate();
+};
+
+function getEuroRate() {
+    var url = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=EUR&json";
+    var response = UrlFetchApp.fetch(url);
+    var data = JSON.parse(response.getContentText());
+    return data[0].rate;
+}

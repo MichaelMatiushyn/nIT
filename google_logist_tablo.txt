@@ -1,0 +1,76 @@
+
+
+function checkColorsInColumnK() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var startRow = 5; // Починаємо з 5 рядка
+  var rangeK = sheet.getRange("K5:K"); // Перевіряємо колонку K, починаючи з 5 рядка
+  var colors = rangeK.getBackgrounds();
+
+  for (var i = 0; i < colors.length; i++) {
+    var row = startRow + i; // Визначаємо поточний рядок
+    if (colors[i][0] == "#ffff00") { //  // "#00ff00") { // Колір lime
+      sheet.getRange(row, 27).setValue("TRUE"); // Записуємо "Так" в колонку AA
+    } 
+    else if (colors[i][0] == "#00ff00") {
+      sheet.getRange(row, 27).setValue("TRUE");
+    }
+    
+    else {
+      sheet.getRange(row, 27).setValue("FALSE");
+    }
+  }
+}
+
+function checkColorsInColumnZ() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var startRow = 5; // Починаємо з 5 рядка
+  var rangeZ = sheet.getRange("Z5:Z"); // Перевіряємо колонку Z, починаючи з 5 рядка
+  var colors = rangeZ.getBackgrounds();
+
+  for (var i = 0; i < colors.length; i++) {
+    var row = startRow + i; // Визначаємо поточний рядок
+    if (colors[i][0] == "#00ff00") { //  // "#00ff00") { // Колір lime
+      sheet.getRange(row, 28).setValue("TRUE"); // Записуємо "Так" в колонку AB
+    } 
+        
+    else {
+      sheet.getRange(row, 28).setValue("FALSE");
+    }
+  }
+}
+
+function getEuroRate() {
+    var url = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=EUR&json";
+    var response = UrlFetchApp.fetch(url);
+    var data = JSON.parse(response.getContentText());
+    return data[0].rate;
+}
+
+function getUSDRate() {
+    var url = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=USD&json";
+    var response = UrlFetchApp.fetch(url);
+    var data = JSON.parse(response.getContentText());
+    return data[0].rate;
+}
+
+function getBackgroundColor(cellRef) {
+  return SpreadsheetApp.getActiveSpreadsheet()
+    .getActiveSheet()
+    .getRange(cellRef)
+    .getBackground();
+}
+
+function onSelectionChange(e) {
+  const sheet = e.source.getActiveSheet();
+  const range = e.range;
+  const row = range.getRow();
+  const targetCell = sheet.getRange(row, 1); // Колонка A
+
+  // Очистити попередні жовті заливки в колонці A
+  const numRows = sheet.getMaxRows();
+  const columnARange = sheet.getRange(1, 1, numRows);
+  columnARange.setBackground(null);
+
+  // Залити поточну клітинку в колонці A жовтим
+  targetCell.setBackground('#ffff00');
+}

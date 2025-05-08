@@ -1,0 +1,58 @@
+function calculateColoredCellSum(range, bgColorName, textColorName) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var values = sheet.getRange(range).getValues();
+  var bgColors = sheet.getRange(range).getBackgrounds();
+  var textColors = sheet.getRange(range).getTextColors();
+  
+  var sum = 0;
+  
+  for (var i = 0; i < values.length; i++) {
+    for (var j = 0; j < values[i].length; j++) {
+      var cellBgColor = bgColors[i][j];
+      var cellTextColor = textColors[i][j];
+      
+      // Get the color names for comparison
+      var bgColor = getColorName(cellBgColor);
+      var textColor = getColorName(cellTextColor);
+      
+      if (bgColor === bgColorName && textColor === textColorName) {
+        sum += parseFloat(values[i][j]);
+      }
+    }
+  }
+  
+  return sum;
+}
+
+function getEuroRate() {
+    var url = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=EUR&json";
+    var response = UrlFetchApp.fetch(url);
+    var data = JSON.parse(response.getContentText());
+    return data[0].rate;
+}
+
+function getUSDRate() {
+    var url = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=USD&json";
+    var response = UrlFetchApp.fetch(url);
+    var data = JSON.parse(response.getContentText());
+    return data[0].rate;
+}
+
+function onSelectionChange(e) {
+  const sheet = e.source.getActiveSheet();
+  const range = e.range;
+  const row = range.getRow();
+
+  // Очистити попередні жовті заливки в колонках B та H
+  const numRows = sheet.getMaxRows();
+  const columnBRange = sheet.getRange(2, 2, numRows); // Колонка B
+  const columnHRange = sheet.getRange(2, 8, numRows); // Колонка H
+  columnBRange.setBackground(null);
+  columnHRange.setBackground(null);
+
+  // Залити поточні клітинки в колонках B та H жовтим
+  const targetCellB = sheet.getRange(row, 2); // Колонка B
+  const targetCellH = sheet.getRange(row, 8); // Колонка H
+  targetCellB.setBackground('#ffff00');
+  targetCellH.setBackground('#ffff00');
+}
