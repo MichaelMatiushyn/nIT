@@ -1,3 +1,4 @@
+// Діалогове вікно / Так чи Ні
 // const shouldConfirm = confirm('Хочете продовжити підписку');
 // console.log(shouldConfirm);
 // метод для підтвердження: Так/Ні
@@ -169,8 +170,6 @@
 
 // =================================================================
 
-// Логічні оператори
-
 // 6 хибних (falsy) значень:
 // [    0,
 //      NaN,
@@ -179,5 +178,65 @@
 //      порожній рядок
 //      false. ]
 
+// ================================================
+
+// Логічні оператори
+
+// ===================================================================
 // Оператори порівняння:   &&  ||  !
 
+// ==================================
+// Тернарний оператор
+
+// let type;
+// const age = 20;
+
+// if (age >= 18) {
+//   type = "adult";
+// } else {
+//   type = "child";
+// }
+
+// console.log(type); // "adult"
+
+// або через тернарник
+
+// const age = 20;
+// const type = age >= 18 ? "adult" : "child";
+// console.log(type); // "adult"
+
+// ще приклад
+
+// const num1 = 5;
+// const num2 = 10;
+// const biggerNumber = num1 > num2 ? num1 : num2;
+
+// console.log(biggerNumber); // 10
+
+// ====================================
+
+// Оператор SWITCH
+
+// let cost;
+// const subscription = "premium";
+
+// switch (subscription) {
+//   case "free":
+//     cost = 0;
+//     break;
+
+//   case "pro":
+//     cost = 100;
+//     break;
+
+//   case "premium":
+//     cost = 500;
+//     break;
+
+//   default:
+//     console.log("Invalid subscription type");
+// }
+
+// console.log(cost); // 500
+
+// Продовжити з циклів Модуль 1 JAva 2.0
