@@ -1,3 +1,5 @@
+'use strict';
+
 // Діалогове вікно / Так чи Ні
 // const shouldConfirm = confirm('Хочете продовжити підписку');
 // console.log(shouldConfirm);
@@ -143,7 +145,7 @@
 
 // Метод string.endsWith('xx')
 
-// перевіряє, чи крнкретний файл закінчується вказаними символами
+// перевіряє, чи конкретний файл закінчується вказаними символами
 // const jsFileName = "script.js";
 // console.log(jsFileName.endsWith(".js"));
 
@@ -239,4 +241,61 @@
 
 // console.log(cost); // 500
 
-// Продовжити з циклів Модуль 1 JAva 2.0
+
+// Цикли
+// while and do while
+
+// let counter = 0;
+
+// while (counter < 10) {
+//   console.log("counter: ", counter);
+//   counter += 1;
+// }
+// let password = "";
+// ----------------------
+// do {
+//   password = prompt("Введіть пароль довший 4-х символів", "");
+// } while (password.length < 5);
+
+// console.log("Ввели пароль: ", password);
+// --------------------------
+
+// const target = 3;
+// let sum = 0;
+
+// for (let i = 0; i <= target; i += 1) {
+//   sum += i;
+// }
+
+// console.log(sum);
+// --------------------------
+
+// Залишок від ділення
+// const max = 10;
+// for (let i = 0; i < max; i += 1) {
+//   console.log(`${max} % ${i} = `, max % i);
+// }
+// -------------------
+
+// Оператор break
+// for (let i = 0; i <= 5; i += 1) {
+//   console.log(i);
+
+//   if (i === 3) {
+//     console.log("Знайшли число 3, перериваємо виконання циклу");
+//     break;
+//   }
+// }
+
+// console.log("Лог після циклу");
+// --------------
+// оператор CONTINUE
+// const number = 10;
+
+// for (let i = 0; i < number; i += 1) {
+//   if (i % 2 === 0) {
+//     continue;
+//   }
+
+//   console.log("Непарне i: ", i); // 1, 3, 5, 7, 9
+// }
