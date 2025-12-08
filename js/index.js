@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 // Діалогове вікно / Так чи Ні
 // const shouldConfirm = confirm('Хочете продовжити підписку');
@@ -240,7 +240,6 @@
 // }
 
 // console.log(cost); // 500
-
 
 // Цикли
 // while and do while

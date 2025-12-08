@@ -1,17 +1,29 @@
 
 
-function checkColorsInColumnK() {
+function checkColorsInColumnG() {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   var startRow = 5; // Починаємо з 5 рядка
-  var rangeK = sheet.getRange("K5:K"); // Перевіряємо колонку K, починаючи з 5 рядка
-  var colors = rangeK.getBackgrounds();
+  var rangeG = sheet.getRange("G5:G"); // Перевіряємо колонку G, починаючи з 5 рядка
+  var colors = rangeG.getBackgrounds();
 
   for (var i = 0; i < colors.length; i++) {
     var row = startRow + i; // Визначаємо поточний рядок
     if (colors[i][0] == "#ffff00") { //  // "#00ff00") { // Колір lime
       sheet.getRange(row, 27).setValue("TRUE"); // Записуємо "Так" в колонку AA
     } 
-    else if (colors[i][0] == "#00ff00") {
+    else if (colors[i][0] == "#f9cb9c") {
+      sheet.getRange(row, 27).setValue("TRUE");
+    }
+    else if (colors[i][0] == "##ffff00") {
+      sheet.getRange(row, 27).setValue("TRUE");
+    }
+    else if (colors[i][0] == "#e6cff2") {
+      sheet.getRange(row, 27).setValue("TRUE");
+    }
+    else if (colors[i][0] == "#d0e0e3") {
+      sheet.getRange(row, 27).setValue("TRUE");
+    }
+    else if (colors[i][0] == "#bfe1f6") {
       sheet.getRange(row, 27).setValue("TRUE");
     }
     
@@ -60,17 +72,208 @@ function getBackgroundColor(cellRef) {
     .getBackground();
 }
 
+// ===========================================================
+
 function onSelectionChange(e) {
   const sheet = e.source.getActiveSheet();
   const range = e.range;
   const row = range.getRow();
-  const targetCell = sheet.getRange(row, 1); // Колонка A
-
-  // Очистити попередні жовті заливки в колонці A
+  const col = range.getColumn(); // Номер стовпця виділеної комірки
   const numRows = sheet.getMaxRows();
-  const columnARange = sheet.getRange(1, 1, numRows);
-  columnARange.setBackground(null);
+  const yellowColor = '#ffff00'; // Жовтий
+  const pinkColor = '#ffc0cb'; // Рожевий
 
-  // Залити поточну клітинку в колонці A жовтим
-  targetCell.setBackground('#ffff00');
+  // --- Крок 1: Очищення заливок контрольованих стовпців ---
+  // Нам потрібно очистити заливки для стовпців A, M, O у всіх рядках,
+  // щоб коректно прибрати попередні виділення.
+  // Важливо: Ми не торкаємося стовпця Z!
+
+  // Очистити стовпець A
+  sheet.getRange(1, 1, numRows, 1).setBackground(null);
+  // Очистити стовпець M
+  sheet.getRange(1, 13, numRows, 1).setBackground(null);
+  // Очистити стовпець O
+  sheet.getRange(1, 15, numRows, 1).setBackground(null);
+
+  if (col === 26) {
+    // Якщо виділено комірку в стовпці Z:
+    // Залити комірки A, M, O у поточному рядку жовтим
+    sheet.getRange(row, 1).setBackground(yellowColor);   // Колонка A (1)
+    sheet.getRange(row, 13).setBackground(yellowColor);  // Колонка M (13)
+    sheet.getRange(row, 14).setBackground(yellowColor);  // Колонка N (14)
+    sheet.getRange(row, 15).setBackground(yellowColor);  // Колонка O (15)
+
+
+  } else {
+    // Якщо виділено будь-яку іншу комірку (не в стовпці Z):
+    // Залити комірку в колонці A поточного рядка жовтим
+    sheet.getRange(row, 1).setBackground(yellowColor); // Колонка A
+  }
 }
+
+// ========================================================
+
+function updateACColumn() {
+  // Отримуємо активний аркуш
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  const greenColorHex = "#00ff00";
+  
+  // Вказуємо діапазон для обробки. Ми беремо дані з колонок A до Z,
+  // щоб перевіряти всі умови, і будемо записувати результат в AC.
+  const startRow = 3;
+  const endRow = 500;
+  const range = sheet.getRange(startRow, 1, endRow - startRow + 1, 31); // від A до Z
+  
+  // Отримуємо всі значення та кольори фону з цього діапазону
+  const values = range.getValues();
+  const backgroundColors = range.getBackgrounds();
+  
+  // Створюємо масив для зберігання результатів для колонки AC
+  const results = [];
+
+  // Проходимо по кожному рядку отриманих даних
+  for (let i = 0; i < values.length; i++) {
+    const row = values[i];
+    const rowColors = backgroundColors[i];
+    
+    // Призначаємо змінні для зручності (індекси починаються з 0)
+    const cellA = row[0];  // Колонка A
+    const cellG = row[6];  // Колонка G
+    const cellW = row[22]; // Колонка W
+    const cellY = row[24]; // Колонка Y
+    
+    const cellZ_value = row[25]; // Значення в колонці Z
+    const cellZ_color = rowColors[25]; // Колір заливки в колонці Z
+
+    let resultValue;
+
+    // Умова 1: якщо комірка A порожня
+    if (cellA === "") {
+      resultValue = "";
+    } else {
+      // Умова 2: перевірка решти умов
+      if (cellG === "отримано" && cellW !== "" && cellY === "" && cellZ_value !== "" && cellZ_color === greenColorHex) {
+        resultValue = 1;
+      } else {
+        resultValue = 0; // В решті випадків
+      }
+    }
+    results.push([resultValue]);
+  }
+  
+  // Записуємо весь масив результатів у колонку AC за один раз
+  sheet.getRange(startRow, 29, results.length, 1).setValues(results); // 29 - це колонка AC
+}
+
+// ==============================================
+
+const SHEET_NAME = "2025"; 
+const STATUS_COLUMN = 7; // Колонка G
+const STATUS_VALUE = "отримано";
+const TIMESTAMP_COLUMN = 31; // Колонка AE для запису дати
+const DAYS_TO_WAIT = 5; // Кількість днів до приховування
+
+function onEdit(e) {
+  const range = e.range;
+  const sheet = range.getSheet();
+  
+  // Перевіряємо, чи редагування відбулося на потрібному аркуші та в потрібній колонці
+  if (sheet.getName() === SHEET_NAME && range.getColumn() === STATUS_COLUMN) {
+    const status = e.value;
+    const timestampCell = sheet.getRange(range.getRow(), TIMESTAMP_COLUMN);
+    
+    // Перевіряємо статус І чи комірка з датою порожня
+    if (status && status.toLowerCase() === STATUS_VALUE.toLowerCase() && timestampCell.getValue() == "") {
+      timestampCell.setValue(new Date());
+    }
+  }
+}
+
+// =======================================
+
+
+const CONFIG = {
+  // Назва аркуша, на якому працює скрипт
+  SHEET_NAME: "2025", 
+
+  HIDE_ROWS: {
+    // Кількість днів, після яких рядок вважається старим
+    DAYS_TO_WAIT: 3, 
+    // Значення статусу, при якому рядок потрібно приховати
+    STATUS_VALUE: "отримано" 
+  },
+  
+  // Номери колонок
+  COLS: {
+    G: 7,   // Колонка G (статус)
+    Z: 26,  // Колонка Z (колір)
+    AE: 31, // Колонка AE (дата зміни статусу)
+    AF: 32  // <--- ДОДАНО: Колонка AF для лічильника днів
+  },
+
+  // Кольори (шістнадцятковий код)
+  COLORS: {
+    // Стандартний колір "LIME" в Google Sheets
+    LIME: '#00ff00' 
+  }
+};
+
+/**
+ * Оновлює лічильник днів у колонці AF для рядків зі статусом "отримано"
+ * та приховує старі рядки, які відповідають усім умовам.
+ */
+function updateCountersAndHideRows() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(CONFIG.SHEET_NAME);
+  if (!sheet || sheet.getLastRow() <= 1) return;
+
+  // Отримуємо всі необхідні дані з аркуша за один раз
+  const dataRange = sheet.getRange(2, 1, sheet.getLastRow() - 1, sheet.getLastColumn());
+  const values = dataRange.getValues();
+  const backgrounds = dataRange.getBackgrounds();
+  
+  const now = new Date();
+  const timeLimit = new Date();
+  timeLimit.setDate(now.getDate() - CONFIG.HIDE_ROWS.DAYS_TO_WAIT);
+
+  const colG = CONFIG.COLS.G - 1;
+  const colZ = CONFIG.COLS.Z - 1;
+  const colAE = CONFIG.COLS.AE - 1;
+  
+  const rowsToHide = [];
+  const afValues = []; // Масив для нових значень у колонці AF
+
+  // Обробляємо кожен рядок
+  for (let i = 0; i < values.length; i++) {
+    const status = values[i][colG];
+    const timestamp = values[i][colAE];
+    let daysPassed = ''; // За замовчуванням комірка лічильника буде порожньою
+
+    // Перевіряємо, чи статус "отримано" і чи є валідна дата
+    if (status && status.toLowerCase() === CONFIG.HIDE_ROWS.STATUS_VALUE && timestamp instanceof Date) {
+      
+      // 1. РОЗРАХУНОК ДНІВ
+      const diffTime = now.getTime() - timestamp.getTime();
+      daysPassed = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      
+      // 2. ПЕРЕВІРКА УМОВИ ДЛЯ ПРИХОВУВАННЯ
+      const zCellColor = backgrounds[i][colZ];
+      if (timestamp < timeLimit && zCellColor === CONFIG.COLORS.LIME) {
+        rowsToHide.push(i + 2); // +2, бо індекс з 0 і дані з 2-го рядка
+      }
+    }
+    afValues.push([daysPassed]);
+  }
+
+  // Оновлюємо колонку AF всіма значеннями за один раз (це швидко)
+  if (afValues.length > 0) {
+    sheet.getRange(2, CONFIG.COLS.AF, afValues.length, 1).setValues(afValues);
+  }
+
+  // Приховуємо всі потрібні рядки за один раз (це теж швидко)
+  if (rowsToHide.length > 0) {
+    rowsToHide.reverse().forEach(rowNum => sheet.hideRows(rowNum));
+  }
+}
+
+
+
