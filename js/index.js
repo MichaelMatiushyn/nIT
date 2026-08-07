@@ -1,8 +1,8 @@
 "use strict";
 
 // Діалогове вікно / Так чи Ні
-// const shouldConfirm = confirm('Хочете продовжити підписку');
-// console.log(shouldConfirm);
+const shouldConfirm = confirm('Хочете продовжити підписку');
+console.log(shouldConfirm);
 // метод для підтвердження: Так/Ні
 
 // const enterText = prompt('Enter your password');
