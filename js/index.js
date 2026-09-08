@@ -100,7 +100,7 @@ console.log(shouldConfirm);
 // const colors = [
 //   "tomato",
 //   "teal",
-//   "orange",
+//   "orange",1
 //   "deeppink",
 //   "lightgreen",
 //   "skyblue",
